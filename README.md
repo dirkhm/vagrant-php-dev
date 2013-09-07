@@ -7,6 +7,7 @@ provision a development environment with the following components:
 * CentOS 6.4
 * PHP 5.4.x
 * MySQL 5.5.x
+* Redis 2.6.14 (latest from source)
 
 It assumes that you have Vagrant and Virtualbox already installed on your system.
 
