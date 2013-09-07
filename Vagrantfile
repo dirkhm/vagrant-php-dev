@@ -95,9 +95,19 @@ Vagrant.configure("2") do |config|
 
     chef.json =	{
         "mysql" => {
-            "server_root_password"   => "mysql4d",
-            "server_repl_password"   => "mysql4d",
-            "server_debian_password" => "mysql4d"
+            "server_root_password"   => "mylilsecret",
+            "server_repl_password"   => "mylilsecret",
+            "server_debian_password" => "mylilsecret"
+        },
+        "redisio" => {
+            "servers" => [
+                {
+                    "name"           => "master",
+                    "port"           => "6379",
+                    "unixsocket"     => "/tmp/redis.sock",
+                    "unixsocketperm" => "755"
+                }
+            ]
         },
         "apache" => {
             "default_site_enabled" => false
@@ -113,8 +123,11 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "yum::yum"
     chef.add_recipe "yum::epel"
     chef.add_recipe "yum::remi"
+    chef.add_recipe "ulimit"
     chef.add_recipe "mysql"
     chef.add_recipe "mysql::server"
+    chef.add_recipe "redisio::install"
+    chef.add_recipe "redisio::enable"
     chef.add_recipe "apache2"
     chef.add_recipe "apache2::iptables"
     chef.add_recipe "apache2::mod_php5"
